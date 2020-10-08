@@ -1,7 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
+const morgan = require('morgan');
+const { list, find } = require('./post-bank');
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.use(morgan('dev'));
+
+// Routes
+app.get('/', (req, res) => res.send('Hello World!'));
 
 const PORT = 1337;
 
