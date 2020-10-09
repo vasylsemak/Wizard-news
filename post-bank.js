@@ -1,4 +1,4 @@
-const data = [
+let data = [
   {
     id: 1,
     upvotes: 257,
@@ -126,6 +126,11 @@ const data = [
     date: new Date(),
   },
 ];
+
+data = data.map(item => {
+  item.date = item.date.toLocaleString();
+  return item;
+});
 
 const list = () => [...data];
 

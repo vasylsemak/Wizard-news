@@ -72,6 +72,7 @@ app.get('/posts/:id', (req, res) => {
   }
 });
 
+// All non-existing Routes
 app.get('*', (req, res) => {
   res.send(`<h2>URL doesn't exist. Please type "posts" for home route.</h2>`);
 });
