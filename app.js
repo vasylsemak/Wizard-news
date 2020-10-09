@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const { list, find } = require('./post-bank');
 
+app.use(express.static('public'));
 app.use(morgan('dev'));
 
 // Routes
@@ -13,16 +14,29 @@ app.get('/posts', (req, res) => {
     <html>
     <head>
       <title>Wizard News</title>
+      <link rel="stylesheet" href="/style.css" />
     </head>
     <body>
-      <ul>
-          ${list()
-            .map(post => `<li>${post.title}. Author - ${post.name}</li>`)
-            .join('')}
-      </ul>
+      <div class="news-list">
+        <header><img src="/logo.png"/>Wizard News</header>
+        ${list()
+          .map(
+            post => `
+          <div class='news-item'>
+            <p>
+              <span class="news-position">${post.id}. ▲</span>${post.title}
+              <small>(by ${post.name})</small>
+            </p>
+            <small class="news-info">
+              ${post.upvotes} upvotes | ${post.date}
+            </small>
+          </div>`
+          )
+          .join('')}
+      </div>
     </body>
-    </html>
-  `;
+  </html>`;
+
   res.send(html);
 });
 
