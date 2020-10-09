@@ -40,8 +40,35 @@ app.get('/posts', (req, res) => {
   res.send(html);
 });
 
-const PORT = 1337;
+app.get('/posts/:id', (req, res) => {
+  const id = req.params.id;
+  const post = find(id);
+  const html = `<!DOCTYPE html>
+  <html>
+    <head>
+      <title>Wizard News</title>
+      <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+      <div class="news-list single-item">
+        <header><img src="/logo.png"/>Single page</header>
+          <div class='news-item'>
+            <p>
+              ${post.title}<small>(by ${post.name})</small>
+            </p>
+            <p>
+              ${post.content}
+            </p>
+          </div>
+      </div>
+    </body>
+  </html>`;
 
+  res.send(html);
+});
+
+// Listening the server
+const PORT = 1337;
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
 });
